@@ -25,6 +25,22 @@ key on `/external_api/{version}/jwks`. This is the URI to declare to your OIDC
 provider. Do not confuse it with `/api/{version}/jwks`, which publishes the key
 validating the tokens Docs itself issues to call external services.
 
+### Authorization servers requiring HTTP Basic authentication
+
+The default backend sends `OIDC_RS_CLIENT_ID` and `OIDC_RS_CLIENT_SECRET` in
+the body of the introspection request (`client_secret_post`). Authorization
+servers that only accept HTTP Basic client authentication
+(`client_secret_basic`, RFC 6749 section 2.3.1), such as the
+[menshen](https://github.com/suitenumerique/menshen) token exchange server,
+reject that request. For them, set:
+
+```python
+OIDC_RS_BACKEND_CLASS=core.external_api.backends.BasicAuthResourceServerBackend
+```
+
+Only the client authentication of the introspection request changes; the
+audience, scope and user checks stay the same.
+
 ## Customise allowed routes
 
 Configure the `EXTERNAL_API` setting to control which routes and actions are available in the external API. Set it via the `EXTERNAL_API` environment variable (as JSON) or in Django settings.

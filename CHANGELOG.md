@@ -8,6 +8,7 @@ and this project adheres to
 
 ### Added
 
+- ✨(backend) add resource server backend using HTTP Basic introspection
 - ✨(yhub) expose whether valkey accepts writes as a metric
 - ✨(yhub) size and bound the compute pool: threads, queue, heap per thread
 
